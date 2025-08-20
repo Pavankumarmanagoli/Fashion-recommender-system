@@ -1,20 +1,30 @@
 # Fashion Recommender System
 
 ## Project Overview
-The Fashion Recommender System is a machine learning application that suggests visually similar fashion products. It uses a pre-trained ResNet50 model to extract feature embeddings from product images and recommends related items using nearest-neighbor search. This approach can be used to enhance shopping experiences by surfacing alternatives or complementary products.
+The Fashion Recommender System is a content‑based recommendation engine that helps shoppers discover apparel similar to a reference item.  
+It converts each product image into a 2,048‑dimensional embedding using a pre‑trained ResNet50 convolutional neural network.  
+These embeddings are indexed with a k‑nearest neighbors model so that, given a query image, the system returns the most visually similar products.  
+E‑commerce platforms can integrate this approach to show alternatives when an item is out of stock or to surface complementary styles that match a customer's preferences.
+
+The repository contains two main components:
+1. **`app.py`** – processes the dataset to generate and store feature embeddings (`embeddings.pkl`) along with image filenames (`filenames.pkl`).
+2. **`main.py`** – a Streamlit web interface that loads the stored embeddings, accepts an image upload, and displays the top matches.
 
 ## Dataset
-The project uses the [Fashion Product Images Dataset](https://www.kaggle.com/datasets/paramaggarwal/fashion-product-images-dataset) from Kaggle.
+The project uses the [Fashion Product Images Dataset](https://www.kaggle.com/datasets/paramaggarwal/fashion-product-images-dataset) from Kaggle.  
+It contains more than 44,000 catalog photos spanning 143 categories and includes metadata such as gender, sub‑category, and base color.  
+This project only requires the images, but the metadata can be incorporated for filtering or advanced experiments.
 
 1. Download the dataset from Kaggle (requires a Kaggle account).
-2. Unzip the images and place them in the `images/` directory at the root of this repository.
-3. Make sure the directory structure resembles `images/0001.png`, `images/0002.png`, etc.
+2. Unzip the images and place them in an `images/` directory at the root of this repository.
+3. The directory should contain files like `images/0001.jpg`, `images/0002.jpg`, etc.
 
 ## Features
-- Extracts deep feature embeddings from fashion images using ResNet50.
-- Finds similar items with a k-nearest neighbors search.
-- Interactive Streamlit web app for uploading an image and viewing recommendations.
-- Utility script to generate image embeddings for the dataset.
+- Content‑based product recommendations driven by deep CNN features.
+- Script to preprocess the dataset and persist embeddings for fast lookups.
+- K‑nearest neighbors search to retrieve visually similar items.
+- Streamlit web app for uploading an image and viewing recommendations in the browser.
+- Modular design—swap in a different backbone or similarity metric with minimal changes.
 
 ## Installation
 ```bash
@@ -26,15 +36,17 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-1. **Generate embeddings** (run once after downloading the dataset):
+1. **Generate embeddings** (run once after downloading the dataset).  
+   This script scans the `images/` directory, extracts features with ResNet50, and saves `embeddings.pkl` and `filenames.pkl` to disk.
    ```bash
    python app.py
    ```
-2. **Launch the Streamlit app**:
+2. **Launch the Streamlit app**.  
+   The app loads the saved embeddings and lets you upload a query image to retrieve the nearest matches.
    ```bash
    streamlit run main.py
    ```
-   Upload a fashion image and the app will display similar items from the dataset.
+   After the app opens in your browser, upload a fashion image and the system will display similar products from the dataset.
 
 ## Example
 Below is a minimal example showing how to load the embeddings and retrieve similar items programmatically:
