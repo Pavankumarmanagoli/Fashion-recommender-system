@@ -1,4 +1,4 @@
-# Fashion Recommender System
+# 👗 Fashion Recommender System
 
 ## Project Overview
 The Fashion Recommender System is a content‑based recommendation engine that helps shoppers discover apparel similar to a reference item.  
@@ -25,6 +25,13 @@ This project only requires the images, but the metadata can be incorporated for 
 - K‑nearest neighbors search to retrieve visually similar items.
 - Streamlit web app for uploading an image and viewing recommendations in the browser.
 - Modular design—swap in a different backbone or similarity metric with minimal changes.
+
+## Tech Stack
+- Python 3.8+
+- TensorFlow & Keras (ResNet50)
+- scikit-learn for nearest neighbors search
+- Streamlit for the interactive web interface
+- Supporting libraries: NumPy, Pillow, OpenCV, and tqdm
 
 ## Installation
 ```bash
@@ -84,13 +91,6 @@ indices = neighbors.kneighbors([query_features])[1]
 for idx in indices[0]:
     print(filenames[idx])
 ```
-
-## Contributing
-Contributions are welcome!
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Commit your changes and push the branch.
-4. Open a pull request describing your changes.
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
